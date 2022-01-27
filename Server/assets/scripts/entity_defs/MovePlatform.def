@@ -1,0 +1,39 @@
+<root>
+	<Volatile>
+		<position/>
+		<!--<position> 0 </position> Don't update-->
+		<yaw/>
+		<!--<pitch> 20 </pitch>-->
+		<pitch/>
+		<roll/>
+	</Volatile>
+
+	<Properties>
+		<modelID>
+			<Type>	UINT16					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</modelID>
+
+		<moveSpeed>
+			<Type>	FLOAT					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</moveSpeed>
+
+		<srcPosition>
+			<Type>	VECTOR3					</Type>
+			<Flags>	CELL_PRIVATE				</Flags>
+		</srcPosition>
+	</Properties>
+
+	<ClientMethods>
+	
+	</ClientMethods>
+
+	<BaseMethods>
+		
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+</root>

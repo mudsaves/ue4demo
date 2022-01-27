@@ -1,0 +1,194 @@
+<root>
+	<Volatile>
+		<position/>
+		<!--<position> 0 </position> Don't update-->
+		<yaw/>
+		<!--<pitch> 20 </pitch>-->
+		<pitch/>
+		<roll/>
+	</Volatile>
+	
+	<Interfaces>
+		<Interface>	SkillInterface		</Interface>
+		<Interface>	QuestInterface		</Interface>
+		<Interface>	RoleCombatInterface	</Interface>
+		<Interface>	RoleItemsBagInterface	</Interface>
+	</Interfaces>
+
+	<Properties>
+		<playerDBID>
+			<Type>		DBID			</Type>
+			<Flags>		OWN_CLIENT		</Flags>
+			<Default>	0			</Default>
+			<Persistent>	false			</Persistent>
+		</playerDBID>
+
+		<testVal>
+			<Type>			UINT32				</Type>
+			<Flags>			BASE_AND_CLIENT			</Flags>
+			<Persistent>	true				</Persistent>
+		</testVal>
+
+		<moveSpeed>
+			<Type>	FLOAT					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</moveSpeed>
+
+
+		<floatValue>
+			<Type>	FLOAT					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</floatValue>
+
+		<uint8Value>
+			<Type>	UINT16					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</uint8Value>
+
+		<uint16Value>
+			<Type>	UINT16					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</uint16Value>
+
+		<uint32Value>
+			<Type>	UINT32					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</uint32Value>
+
+		<int8Value>
+			<Type>	INT16					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</int8Value>
+
+		<int16Value>
+			<Type>	INT16					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</int16Value>
+
+		<int32Value>
+			<Type>	INT32					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</int32Value>
+
+		<strValue>
+			<Type>	STRING					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</strValue>
+
+		<vector2Value>
+			<Type>	VECTOR2					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</vector2Value>
+
+		<vectorValue>
+			<Type>	VECTOR3					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</vectorValue>
+	</Properties>
+
+	<ClientMethods>
+		<onDBID>
+			<Arg>	DBID	</Arg> <!-- player dbid -->
+		</onDBID>
+
+		<onClientEvent>
+			<Arg>	INT32	</Arg> <!-- player dbid -->
+		</onClientEvent>
+		
+		<testFixedDict>
+			<Arg> ITEM </Arg>
+		</testFixedDict>
+
+		<testFixedDictT1>
+			<Arg> ITEM_T1 </Arg>
+		</testFixedDictT1>
+		
+		<testOther1>
+			<Arg> FLOAT </Arg>
+			<Arg> ITEM </Arg>  <!-- FIXED_DICT type -->
+			<Arg> UNICODE </Arg>
+			<Arg> ARRAY <of> INT32 </of> </Arg>
+		</testOther1>
+		
+		<testJson>
+			<Arg> UNICODE </Arg>
+		</testJson>
+		
+		<testForNoParam>
+		</testForNoParam>
+		
+		<testCellTimeCB/>
+		<testBaseTimeCB/>
+		
+		<notifyAcrossServer/>
+		<notifyAcrossServerBack/>
+	</ClientMethods>
+
+	<BaseMethods>
+		<onClientDBID>
+			<Exposed/>
+			<Arg>	DBID	</Arg> <!-- player dbid -->
+		</onClientDBID>
+
+		<onBaseEvent>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- player dbid -->
+		</onBaseEvent>
+
+		<createCellEntityOnMapCB>
+			<Arg>	ENTITYCALL	</Arg>
+		</createCellEntityOnMapCB>
+
+		<testTime>
+			<Exposed/>
+		</testTime>
+		
+		<reqLoginOffForAcross>
+			<Exposed/>
+		</reqLoginOffForAcross>
+
+		<reqLoginOffForAcrossBack>
+			<Exposed/>
+		</reqLoginOffForAcrossBack>
+	</BaseMethods>
+
+	<CellMethods>
+		<onCellEvent>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- player dbid -->
+		</onCellEvent>
+		
+		<onCellEvent2>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- player dbid -->
+			<Arg>	UNICODE	</Arg> <!-- player dbid -->
+			<Arg>	ITEM	</Arg> <!-- player dbid -->
+		</onCellEvent2>
+
+		<requestTeleport>
+			<Exposed/>
+		</requestTeleport>
+
+		<requestAddParent>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- entity id -->
+		</requestAddParent>
+
+		<requestRemoveParent>
+			<Exposed/>
+			<Arg>	INT32	</Arg> <!-- entity id -->
+		</requestRemoveParent>
+
+		<clientReqGMCommand>
+			<Exposed/>
+			<Arg>   INT32  </Arg>
+			<Arg>	STRING	</Arg>
+			<Arg>	UNICODE	</Arg>
+		</clientReqGMCommand>
+
+		<testTime>
+			<Exposed/>
+		</testTime>
+	</CellMethods>
+
+</root>

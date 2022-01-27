@@ -1,0 +1,200 @@
+<root>
+	<DBID>				UINT64		</DBID>
+	<BOOL>				UINT8		</BOOL>
+	<UID>				INT64		</UID>
+	<ITEM_ID>			INT32		</ITEM_ID>
+	<SERVER_TIME>		INT64		</SERVER_TIME>
+
+	
+	<ITEM> FIXED_DICT
+		<Properties>
+			<uid>       <Type> UINT64     </Type> </uid>
+			<id>        <Type> UINT64 </Type> </id>
+			<amount>    <Type> INT32   </Type> </amount>
+			<flag>      <Type> ARRAY <of> INT8 </of>   </Type> </flag>      <!-- 附加标记 -->
+			<misc>      <Type> UNICODE </Type> </misc>      <!-- 动态扩展参数（json） -->
+		</Properties>
+	</ITEM>
+
+	<ITEM_T1> FIXED_DICT
+		<Properties>
+			<parent>       <Type> UINT64     </Type> </parent>
+			<items>     <Type> ARRAY <of> ITEM </of> </Type> </items>      <!-- 动态扩展参数（json） -->
+		</Properties>
+	</ITEM_T1>
+	
+	<COOLDOWN_DATA> FIXED_DICT
+		<Properties>
+			<cdID>            <Type> INT32         </Type> </cdID>
+			<endTime>         <Type> SERVER_TIME   </Type> </endTime>
+			<timeFlag>        <Type> BOOL          </Type> </timeFlag>
+		</Properties>
+	</COOLDOWN_DATA>
+	
+	<COOLDOWNS> FIXED_DICT
+		<implementedBy>  CooldownsPacketImpl.instance  </implementedBy>
+		<Properties>
+			<cooldownData>     <Type> ARRAY <of> COOLDOWN_DATA </of>    </Type></cooldownData>
+		</Properties>
+	</COOLDOWNS>
+	
+	<SKILL_TARGET_OBJ> FIXED_DICT
+		<implementedBy>  SkillTargetObjImpl.instance  </implementedBy>
+		<Properties>
+			<objType>           <Type> INT32                </Type> </objType>
+			<param>             <Type> PYTHON               </Type> </param>
+		</Properties>
+	</SKILL_TARGET_OBJ>
+	
+	<SKILL_TASK_TIMER_PARAM> FIXED_DICT
+		<Properties>
+			<skillID>           <Type> INT32                </Type> </skillID>
+			<taskIndex>         <Type> INT32                 </Type> </taskIndex>
+			<target>            <Type> SKILL_TARGET_OBJ      </Type> </target>
+			<successReceiver>   <Type> ARRAY <of> SKILL_TARGET_OBJ </of> </Type> </successReceiver>
+		</Properties>
+	</SKILL_TASK_TIMER_PARAM>
+	
+	<HOLD_EFFECT_DATA> FIXED_DICT
+		<implementedBy>  HoldEffectDataType.instance  </implementedBy>
+		<Properties>
+			<index>           <Type> INT32                </Type> </index>
+			<casterID>        <Type> INT32                </Type> </casterID>
+			<param>           <Type> PYTHON               </Type> </param>
+		</Properties>
+	</HOLD_EFFECT_DATA>
+	<HOLD_EFFECT_DATA_LIST>  ARRAY <of> HOLD_EFFECT_DATA </of>  </HOLD_EFFECT_DATA_LIST>
+	
+	<BUFF_EFFECT_DATA_DICT> FIXED_DICT
+		<implementedBy>  BuffEffectDataPacketImpl.instance  </implementedBy>
+		<Properties>
+			<buffIndexList>      <Type>   ARRAY <of> INT32 </of>                  </Type> </buffIndexList>
+			<effectDataList>     <Type>   ARRAY <of> HOLD_EFFECT_DATA_LIST </of>  </Type> </effectDataList>
+		</Properties>
+	</BUFF_EFFECT_DATA_DICT>
+	
+	<BUFF> FIXED_DICT
+		<implementedBy>  BuffTypeImpl.instance  </implementedBy>
+		<Properties>
+			<id>           <Type> INT32                </Type> </id>
+			<param>        <Type> PYTHON               </Type> </param>
+		</Properties>
+	</BUFF>
+	
+	<BUFF_DATA> FIXED_DICT
+		<Properties>
+			<index>           <Type> INT32               </Type> </index>
+			<buff>            <Type> BUFF                </Type> </buff>
+			<casterID>
+						<Type>       INT32        </Type>
+						<Persistent> false        </Persistent>
+			</casterID>
+			<endTime>         <Type> SERVER_TIME         </Type> </endTime>
+			<timeFlag>        <Type> BOOL                </Type> </timeFlag>
+			<endTimerID>
+						<Type>       INT32        </Type>
+						<Persistent> false        </Persistent>
+			</endTimerID>
+			<loopTimerID>
+						<Type>       INT32       </Type>
+						<Persistent> false       </Persistent>
+			</loopTimerID>
+		</Properties>
+	</BUFF_DATA>
+	
+	<BUFF_DATAS>	FIXED_DICT
+		<implementedBy>			BuffsPacketImpl.instance		</implementedBy>
+		<Properties>
+			<buffData>			<Type>	ARRAY<of> BUFF_DATA </of>	</Type>		</buffData>
+		</Properties>
+	</BUFF_DATAS>
+	
+	<PSV_SKILL_EFFECT_DATA_DICT> FIXED_DICT
+		<implementedBy>  PsvSkillEffectDataPacketImpl.instance  </implementedBy>
+		<Properties>
+			<skillIDList>        <Type>   ARRAY <of> INT32 </of>                  </Type> </skillIDList>
+			<effectDataList>     <Type>   ARRAY <of> HOLD_EFFECT_DATA_LIST </of>  </Type> </effectDataList>
+		</Properties>
+	</PSV_SKILL_EFFECT_DATA_DICT>
+	
+	<QUEST_TASK>	FIXED_DICT
+		<implementedBy>			QuestTaskImpl.instance		</implementedBy>
+		<Properties>
+			<index>			<Type>	UINT8 </Type>		</index>
+			<type>			<Type>	UINT8 </Type>		</type>
+			<taskTime>		<Type>	SERVER_TIME </Type>	</taskTime>
+			<taskTimerID>
+						<Type>       INT32        </Type>
+						<Persistent> false        </Persistent>
+			</taskTimerID>
+			<str1>			<Type>	STRING </Type>		</str1>
+			<str2>			<Type>	STRING </Type>		</str2>
+			<str3>			<Type>	STRING </Type>		</str3>
+			<val1>			<Type>	INT32 </Type>		</val1>
+			<val2>			<Type>	INT32 </Type>		</val2>
+			<val3>			<Type>	INT32 </Type>		</val3>
+		</Properties>
+	</QUEST_TASK>
+	
+	<QUEST_DATA_TYPE>	FIXED_DICT
+		<implementedBy>			QuestDataType.instance		</implementedBy>
+		<Properties>
+			<questID>			<Type>	INT32 						</Type>		</questID>
+			<tasks>				<Type>	ARRAY<of> QUEST_TASK </of>	</Type>		</tasks>
+		</Properties>
+	</QUEST_DATA_TYPE>
+	
+	<QUESTS_TABLE>	FIXED_DICT
+		<implementedBy>			QuestTablePacketImpl.instance		</implementedBy>
+		<Properties>
+			<questData>			<Type>	ARRAY<of> QUEST_DATA_TYPE </of>	</Type>		</questData>
+		</Properties>
+	</QUESTS_TABLE>
+	
+	<QUEST_LOG>	FIXED_DICT
+		<Properties>
+			<questID>			<Type>	INT32		</Type>		</questID>
+			<logTime>			<Type>	SERVER_TIME	</Type>		</logTime>
+		</Properties>
+	</QUEST_LOG>
+	
+	<QUEST_LOGS>	FIXED_DICT
+		<implementedBy>			QuestLogPacketImpl.instance		</implementedBy>
+		<Properties>
+			<logData>			<Type>	ARRAY<of> QUEST_LOG </of>	</Type>		</logData>
+		</Properties>
+	</QUEST_LOGS>
+	
+	<ITEM_DATA>	FIXED_DICT
+		<implementedBy>	ItemTypeImpl.instance	</implementedBy>
+		<Properties>
+			<id>		<Type>	ITEM_ID		</Type>	</id>
+			<uid>		<Type>	UID			</Type>	</uid>
+			<ownerID>	<Type>	DBID		</Type>	</ownerID>
+			<order>		<Type>	INT16		</Type>	</order>
+			<amount>	<Type>	INT32		</Type>	</amount>
+			<extra>
+						<Type>	UNICODE		</Type>
+			</extra>
+			<tmpExtra>
+						<Type>	UNICODE		</Type>
+						<Persistent>false	</Persistent>
+			</tmpExtra>
+		</Properties>
+	</ITEM_DATA>
+	
+	<ITEMS_BAG>	FIXED_DICT
+		<implementedBy>	ItemsBagTypeImpl.instance	</implementedBy>
+		<Properties>
+			<items>		<Type>	ARRAY<of> ITEM_DATA </of>	</Type>	 </items>
+		</Properties>
+	</ITEMS_BAG>
+	
+	<AI_FSM>	FIXED_DICT
+		<implementedBy>	AIFsmImpl.instance	</implementedBy>
+		<Properties>
+			<fsmKey>	<Type>	STRING </Type>	 </fsmKey>
+		</Properties>
+	</AI_FSM>
+
+</root>

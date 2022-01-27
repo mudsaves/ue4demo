@@ -1,0 +1,26 @@
+<root>
+	<Volatile>
+		<position/>
+		<!--<position> 0 </position> Don't update-->
+		<yaw/>
+		<!--<pitch> 20 </pitch>-->
+		<pitch/>
+		<roll/>
+	</Volatile>
+
+	<Properties>
+	
+	</Properties>
+
+	<ClientMethods>
+	
+	</ClientMethods>
+
+	<BaseMethods>
+		
+	</BaseMethods>
+
+	<CellMethods>
+	</CellMethods>
+
+</root>

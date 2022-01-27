@@ -1,0 +1,38 @@
+<root>
+	<Properties>
+		<mapType>
+			<Type>	STRING					</Type>
+			<Flags>	ALL_CLIENTS				</Flags>
+		</mapType>
+		
+		<mappingPath>
+			<Type>	UNICODE			</Type>
+			<Flags>	CELL_PRIVATE	</Flags>
+		</mappingPath>
+		
+		<attackRelationKey>
+			<Type>	STRING			</Type>
+			<Flags>	CELL_PRIVATE		</Flags>
+		</attackRelationKey>
+	</Properties>
+
+	<ClientMethods>
+	
+	</ClientMethods>
+
+	<BaseMethods>
+		<createCellEntityOnMap>
+			<Arg>	ENTITYCALL	</Arg>
+		</createCellEntityOnMap>
+		
+	</BaseMethods>
+
+	<CellMethods>
+		<test_createMonster>
+			<Arg>	INT32	</Arg>
+			<Arg>	VECTOR3	</Arg>
+			<Arg>	STRING	</Arg>
+		</test_createMonster>
+	</CellMethods>
+
+</root>
