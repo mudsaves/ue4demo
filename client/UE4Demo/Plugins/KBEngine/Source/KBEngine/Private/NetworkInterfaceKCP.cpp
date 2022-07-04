@@ -129,7 +129,12 @@ void NetworkInterfaceKCP::kcp_writeLog(const char* log, ikcpcb* kcp, void* user)
 int NetworkInterfaceKCP::SendTo(const char* buf, int len)
 {
 	int32 sent = 0;
-	socket_->SendTo((uint8*)buf, len, sent, *addr_);
+	if (!socket_->SendTo((uint8*)buf, len, sent, *addr_))
+	{
+		KBE_ERROR(TEXT("NetworkInterfaceKCP::SendTo error"));
+		WillClose();
+		// Close(); 不能在此处关闭，因为此函数会被ikcp_update调用，Close会导致ikcp_=NULL，导致ikcp_update后续的代码执行崩溃
+	}
 
 	return 0;
 }

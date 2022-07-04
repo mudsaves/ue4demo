@@ -401,7 +401,7 @@ namespace KBEngine
 			{
 				KBE_ERROR(TEXT("BaseApp::SendTick: Receive appTick timeout!lastTickCBTime_(%s) - lastTicktime_(%s) < 0, span(%s)"), 
 					*lastTickCBTime_.ToString(), *lastTicktime_.ToString(), *span.ToString());
-				networkInterface_->Close();
+				networkInterface_->WillClose();
 				return;
 			}
 
