@@ -61,6 +61,8 @@ namespace KBEngine
 
 		static FString GetIPAddress(const FString &ipAddress);
 
+		static void ResolveIPAddressAsnyc(const FString& IpAddress);
+
 	public:
 		// for internal
 

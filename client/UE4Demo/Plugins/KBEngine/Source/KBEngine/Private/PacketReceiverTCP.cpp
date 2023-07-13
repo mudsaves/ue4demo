@@ -40,7 +40,7 @@ void PacketReceiverTCP::BackgroundRecv()
 	bool recvSuccess = networkInterface_->Socket()->Recv(&(buffer_[wpos_]), space, bytesRead);
 	if (!recvSuccess)
 	{
-		KBE_ERROR(TEXT("PacketReceiverTCP::BackgroundRecv: Maybe lose connected from server!"));
+		KBE_WARNING(TEXT("PacketReceiverTCP::BackgroundRecv: Maybe lose connected from server!"));
 		breakThread_ = true;
 		if (!willClose_)
 			networkInterface_->WillClose();

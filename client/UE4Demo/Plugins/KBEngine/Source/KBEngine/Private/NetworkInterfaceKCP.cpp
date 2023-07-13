@@ -5,6 +5,11 @@
 #include "NetworkStatus.h"
 #include "PacketSenderKCP.h"
 
+
+static const int32 UDP_SEND_BUFFER = 1024 * 1024;
+static const int32 UDP_RECEIVE_BUFFER = 1024 * 1024;
+
+
 namespace KBEngine
 {
 
@@ -98,7 +103,7 @@ bool NetworkInterfaceKCP::initKCP()
 
 	ikcp_wndsize(kcp_, KBEngineApp::app->GetUdpSendBufferMax(), KBEngineApp::app->GetUdpRecvBufferMax());
 	ikcp_nodelay(kcp_, 1, 10, 2, 1);
-	kcp_->rx_minrto = 10;
+	kcp_->rx_minrto = 20;
 	nextTickKcpUpdate_ = 0;
 	return true;
 }
@@ -163,6 +168,29 @@ bool NetworkInterfaceKCP::InitSocket(uint32 receiveBufferSize, uint32 sendBuffer
 			socket_ = nullptr;
 			return false;
 		}
+
+		int32 NewSize;
+		if (!socket_->SetSendBufferSize(UDP_SEND_BUFFER, NewSize))
+		{
+			KBE_ERROR(TEXT("NetworkInterfaceKCP::InitSocket:Set SendBuffer Size:%d error"), UDP_SEND_BUFFER);
+
+			socketSubsystem_->DestroySocket(socket_);
+
+			socket_ = nullptr;
+			return false;
+		}
+		KBE_DEBUG(TEXT("NetworkInterfaceKCP::InitSocket:SetSendBufferSize:%d"), NewSize);
+
+		if (!socket_->SetReceiveBufferSize(UDP_RECEIVE_BUFFER, NewSize))
+		{
+			KBE_ERROR(TEXT("NetworkInterfaceKCP::InitSocket:SetReceiveBufferSize:%d error"), UDP_RECEIVE_BUFFER);
+			socketSubsystem_->DestroySocket(socket_);
+
+			socket_ = nullptr;
+			return false;
+		}
+		KBE_DEBUG(TEXT("NetworkInterfaceKCP::InitSocket:Set ReceiveBuffer Size:%d"), NewSize);
+		
 	}
 	return true;
 }

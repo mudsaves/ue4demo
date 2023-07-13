@@ -171,27 +171,64 @@ namespace KBEngine
 
 	FString NetworkInterfaceBase::GetIPAddress(const FString &ipAddress)
 	{
-		ISocketSubsystem* socketSubsystem = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM);
-		if (socketSubsystem == nullptr)
+		ISocketSubsystem* SocketSubsystem = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM);
+		if (SocketSubsystem == nullptr)
 		{
 			KBE_ERROR(TEXT("NetworkInterface::GetIPAddress:cant get SocketSubsystem."));
 			return ipAddress;
 		}
 
-		TSharedPtr<FInternetAddr> remoteAddr = socketSubsystem->CreateInternetAddr();
-		FString outIP = ipAddress;
+		TSharedPtr<FInternetAddr> RemoteAddr = SocketSubsystem->CreateInternetAddr();
+		FString OutIP = ipAddress;
 		bool bIsValid = false;
-		remoteAddr->SetIp(*outIP, bIsValid);	// 验证是否ip地址
+		RemoteAddr->SetIp(*OutIP, bIsValid);	// 验证是否ip地址
 		if (!bIsValid)							// 不是ip地址，作为域名解析
 		{
-			ESocketErrors hostResolveError = socketSubsystem->GetHostByName(TCHAR_TO_ANSI(*ipAddress), *remoteAddr);
+			ESocketErrors hostResolveError = SocketSubsystem->GetHostByName(TCHAR_TO_ANSI(*ipAddress), *RemoteAddr);
 			if (hostResolveError == SE_NO_ERROR || hostResolveError == SE_EWOULDBLOCK)
 			{
-				outIP = remoteAddr->ToString(false);
-				KBE_DEBUG(TEXT("NetworkInterface::GetIPAddress:resolve host ---> %s to %s."), *ipAddress, *outIP);
+				OutIP = RemoteAddr->ToString(false);
+				KBE_DEBUG(TEXT("NetworkInterface::GetIPAddress:resolve host ---> %s to %s."), *ipAddress, *OutIP);
 			}
 		}
 
-		return outIP;
+		return OutIP;
+	}
+
+	void NetworkInterfaceBase::ResolveIPAddressAsnyc(const FString& IpAddress)
+	{
+		ISocketSubsystem* SocketSubsystem = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM);
+		if (SocketSubsystem == nullptr)
+		{
+			KBE_ERROR(TEXT("NetworkInterface::GetIPAddress:cant get SocketSubsystem."));
+			return;
+		}
+
+		auto AsyncResolverHandler = [](FAddressInfoResult Results) {
+
+			FString OutIP = "";
+
+			if (Results.ReturnCode != ESocketErrors::SE_NO_ERROR)
+			{
+				// 出错了那就使用配置里的IP
+				// OutIP = 
+				KBE_ERROR(TEXT("NetworkInterface::GetIPAddress:cant get SocketSubsystem."));
+			}
+
+			for (auto& Item : Results.Results)
+			{
+				if (Item.Address.Get().IsValid())
+				{
+					OutIP = Item.Address.Get().ToString(false);
+					break;
+					
+				}
+			}
+
+			UE_LOG(LogTemp, Log, TEXT("UPMDsNetworkStateSubSystem::ResolveIPAddress Resolve Host=%s,  Ip =%s"), *Results.QueryHostName, *OutIP);
+
+		};
+
+		SocketSubsystem->GetAddressInfoAsync(AsyncResolverHandler, *IpAddress);
 	}
 }
