@@ -67,6 +67,20 @@
 				2: RSA (res\key\kbengine_private.key)
 		 -->
 		<encrypt_type> 1 </encrypt_type>
+		
+		<reliableUDP>
+			<!-- Equivalent to TCP RCV_BUF, unit is the number of UDP-packages -->
+			<readPacketsQueueSize>
+				<internal>				1024		</internal>
+				<external>				128			</external>
+			</readPacketsQueueSize>
+
+			<!-- Equivalent to TCP SND_BU, unit is the number of UDP-packages -->
+			<writePacketsQueueSize>
+				<internal>				1024		</internal>
+				<external>				256			</external>
+			</writePacketsQueueSize>
+		</reliableUDP>
 	</channelCommon> 	
 	
 	<app_publish>0</app_publish>
@@ -246,6 +260,8 @@
 		-->
 		<externalTcpPorts_min> 20015 </externalTcpPorts_min>                                  <!-- Type: Integer -->
 		<externalTcpPorts_max> 20017 </externalTcpPorts_max>                                  <!-- Type: Integer -->
+		
+		<externalAddress>  172.16.3.210 </externalAddress>							<!-- Type: String -->
 	</baseapp>
 	
 	<cellappmgr>

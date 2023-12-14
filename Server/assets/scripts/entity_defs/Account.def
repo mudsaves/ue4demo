@@ -165,6 +165,11 @@
 			<Arg>	ITEM	</Arg> <!-- player dbid -->
 		</onCellEvent2>
 
+		<onCellEvent3> 	<!-- test DOUBLE_DICT -->
+			<Exposed/>
+			<Arg>	DOUBLE_DICT_LIST	</Arg>
+		</onCellEvent3>
+
 		<requestTeleport>
 			<Exposed/>
 		</requestTeleport>

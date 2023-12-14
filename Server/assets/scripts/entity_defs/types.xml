@@ -197,4 +197,13 @@
 		</Properties>
 	</AI_FSM>
 
+	<DOUBLE_DICT> FIXED_DICT
+		<Properties>
+			<ddd>	<Type>	DOUBLE </Type>	 </ddd>
+		</Properties>
+	</DOUBLE_DICT>
+
+	<DOUBLE_DICT_LIST>
+		ARRAY <of> DOUBLE_DICT </of>
+	</DOUBLE_DICT_LIST>
 </root>

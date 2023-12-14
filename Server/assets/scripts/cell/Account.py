@@ -39,6 +39,8 @@ class Account(KBEngine.Entity, RoleSkillInterface, QuestInterface, RoleCombatInt
 		@param userArg	: addTimer 最后一个参数所给入的数据
 		"""
 		if userArg == 0:
+			#return	# 停止发送测试数据给客户端
+
 			pass
 			self.index = self.index + 1
 			if self.index > 250:
@@ -141,6 +143,19 @@ class Account(KBEngine.Entity, RoleSkillInterface, QuestInterface, RoleCombatInt
 		"""
 		ERROR_MSG( "Account::onCellEvent2(), entity: %s, int: %s, str: %s, ITEM: %s" % (entityID, testInt, testString, testITEM) )
 		print("Account::onCellEvent2(), entity: %s, int: %s, str: %s, ITEM: %s" % (entityID, testInt, testString, testITEM))
+
+	def onCellEvent3( self, arrayofDoubleDict ):
+		"""
+		测试接收客户端发送的 DOUBLE_DICT_LIST 类型数据
+		"""
+		ERROR_MSG( "Account::onCellEvent3(), entity: %s" % self.id )
+		print(arrayofDoubleDict)
+		for item in arrayofDoubleDict:
+			print(item["ddd"])
+		#print("Account::onCellEvent3(), entity: %s, int: %s, str: %s, ITEM: %s" % (entityID, testInt, testString, testITEM))
+
+	def onWitnessed(self, isWitnessed):
+		DEBUG_MSG("Account::onWitnessed(isWitnessed)");
 
 	def clientReqGMCommand( self, srcEntityID, dstEntityID, cmd, args ):
 		"""

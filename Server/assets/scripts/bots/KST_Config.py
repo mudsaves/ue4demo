@@ -4,9 +4,9 @@
 aiPer = {
 	"FightRoleAI"			: 0,				#玩家竞技
 	"FightMonsterAI"		: 0,				#玩家与怪物战斗
-	"QuestAI"				: 100,				#单一任务
+	"QuestAI"				: 0,				#单一任务
 	"LoopQuestAI"			: 0,				#多任务
-	"ContrlMonsterMoveAI"	: 0,				#控制怪物跟随自己移动
+	"ContrlMonsterMoveAI"	: 100,				#控制怪物跟随自己移动
 }
 
 """
@@ -37,4 +37,4 @@ FightMonsterAI_skill = 5		#使用的攻击技能
 控制怪物跟随自己移动测试配置-----------------------------
 """
 ContrlMonsterMoveAI_radius = 10		#走动半径
-ContrlMonsterMoveAI_amount = 50		#招怪数量
+ContrlMonsterMoveAI_amount = 10		#招怪数量
